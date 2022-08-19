@@ -202,7 +202,7 @@ def update_observation(
                 Date=datetime.datetime.strptime(date, "%Y-%m-%d").date(),
                 Category=category,
                 Item=item,
-                Price=float(price),
+                Price=price,
                 State=state,
                 City=city,
             )
@@ -223,7 +223,7 @@ def delete_observations(
             Date=datetime.datetime.strptime(date, "%Y-%m-%d").date(),
             Category=category,
             Item=item,
-            Price=float(price),
+            Price=price,
             State=state,
             City=city,
         )
