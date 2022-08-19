@@ -44,7 +44,13 @@ app.layout = html.Div(
                         ),
                         html.Br(),
                         html.Label("Price"),
-                        dbc.Input(type="number", id="price-input", min=0, step=0.01),
+                        dbc.Input(
+                            type="number",
+                            id="price-input",
+                            min=0,
+                            step=0.1,
+                            required=True,
+                        ),
                         html.Br(),
                         html.Label("State"),
                         dcc.Dropdown(
