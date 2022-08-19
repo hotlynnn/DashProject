@@ -111,10 +111,15 @@ app.layout = html.Div(
                             ),
                             id="observation-graph",
                         ),
-                        html.H3("Table of Observations", style={"text-align": "center"}),
+                        html.H3(
+                            "Table of Observations", style={"text-align": "center"}
+                        ),
                         dash_table.DataTable(
                             Observation.table_df().to_dict("records"),
                             id="observation-table",
+                            # style dash table
+                            style_table={"height": "400px", "overflowY": "auto"},
+                            style_cell={"textAlign": "center", "padding": "5px"},
                         ),
                     ],
                     style={"padding": 10, "flex": 1},
