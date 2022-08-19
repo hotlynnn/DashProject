@@ -70,7 +70,12 @@ app.layout = html.Div(
                         html.Br(),
                         html.Br(),
                         html.Label("Number of Matching Observations to delete"),
-                        dbc.Input(type="number", value=1, id="delete-n-observations"),
+                        dbc.Input(
+                            type="number",
+                            value=1,
+                            id="delete-n-observations",
+                            required=True,
+                        ),
                         html.Br(),
                         html.Label("Delete Most Recent First?"),
                         dbc.Checklist(
