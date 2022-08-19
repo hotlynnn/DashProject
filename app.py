@@ -24,7 +24,7 @@ app.layout = html.Div(
             [
                 html.Div(
                     children=[
-                        html.H1("Price Observation Data Entry"),
+                        html.H4("Price Observation Data Entry"),
                         html.Br(),
                         html.Label("Date"),
                         dcc.DatePickerSingle(date=datetime.date.today(), id="date-input"),
