@@ -27,7 +27,9 @@ app.layout = html.Div(
                         html.H4("Price Observation Data Entry"),
                         html.Br(),
                         html.Label("Date"),
-                        dcc.DatePickerSingle(date=datetime.date.today(), id="date-input"),
+                        dcc.DatePickerSingle(
+                            date=datetime.date.today(), id="date-input"
+                        ),
                         html.Br(),
                         html.Label("Category"),
                         dcc.Dropdown(
@@ -61,8 +63,6 @@ app.layout = html.Div(
                         html.Br(),
                         html.Label("City"),
                         dcc.Dropdown(
-                            options=Observation.available_cities(),
-                            value="Dallas",
                             id="city-input",
                         ),
                         html.Br(),
