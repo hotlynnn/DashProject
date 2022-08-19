@@ -131,6 +131,12 @@ app.layout = html.Div(
 )
 
 
+# Update city by state dropdown
+@app.callback(Output("city-input", "options"), [Input("state-input", "value")])
+def update_date_dropdown(state):
+    return [{"label": i, "value": i} for i in Observation.state_city_map[state]]
+
+
 @app.callback(
     Output(component_id="observation-table", component_property="data"),
     Output(component_id="observation-graph", component_property="figure"),
