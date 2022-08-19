@@ -222,8 +222,16 @@ def update_graph(graph_type: str, date: str):
         # The selected date is not represented the same way in the dataframe.
         # Hence the selected date is modified to match that of the dataframe to
         # enable filtering of the data.
-        date = str(datetime.datetime.strptime(date + " 00:00:00", "%Y-%m-%d %H:%M:%S"))
-        data_for_selected_date = df.loc[df["Date"] == date]
+        date_format_for_custom_added_data = str(
+            datetime.datetime.strptime(date, "%Y-%m-%d").date()
+        )
+        date_format_for_preinstantiated_data = str(
+            datetime.datetime.strptime(date + " 00:00:00", "%Y-%m-%d %H:%M:%S")
+        )
+        data_for_selected_date = df.loc[
+            (df["Date"] == date_format_for_preinstantiated_data)
+            | (df["Date"] == date_format_for_custom_added_data)
+        ]
         return df.to_dict("records"), px.bar(
             data_for_selected_date.groupby(["City", "Item"]).mean().reset_index(),
             x="Item",

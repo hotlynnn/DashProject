@@ -179,7 +179,7 @@ class Observation:
     def table_df() -> pd.DataFrame:
         with sqlite3.connect(db_file) as con:
             sql = "select * from Observation"
-            return pd.read_sql(sql, con)
+            return pd.read_sql(sql, con).sort_index(ascending=False)
 
     def delete_matching(
         self, n_to_delete: int = 1, order_to_delete_in: Optional[dict] = None, **kwargs
