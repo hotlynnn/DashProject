@@ -117,6 +117,8 @@ class Observation:
                     self.City,
                 ]
             ]
+            # handle None values for empty inputs
+            if "None" not in row:
             sql = (
                 f"INSERT INTO Observation (Date, Item, Price, Category, State, City) values "
                 f'({", ".join(row)})'
