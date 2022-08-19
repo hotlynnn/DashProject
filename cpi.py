@@ -119,11 +119,11 @@ class Observation:
             ]
             # handle None values for empty inputs
             if "None" not in row:
-            sql = (
-                f"INSERT INTO Observation (Date, Item, Price, Category, State, City) values "
-                f'({", ".join(row)})'
-            )
-            con.execute(sql)
+                sql = (
+                    f"INSERT INTO Observation (Date, Item, Price, Category, State, City) values "
+                    f'({", ".join(row)})'
+                )
+                con.execute(sql)
 
     @classmethod
     def create_table(cls):
