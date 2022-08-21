@@ -24,10 +24,12 @@ app.layout = html.Div(
             [
                 html.Div(
                     children=[
-                        html.H1("Price Observation Data Entry"),
+                        html.H4("Price Observation Data Entry"),
                         html.Br(),
                         html.Label("Date"),
-                        dcc.DatePickerSingle(date=datetime.date.today(), id="date-input"),
+                        dcc.DatePickerSingle(
+                            date=datetime.date.today(), id="date-input"
+                        ),
                         html.Br(),
                         html.Label("Category"),
                         dcc.Dropdown(
@@ -44,7 +46,13 @@ app.layout = html.Div(
                         ),
                         html.Br(),
                         html.Label("Price"),
-                        dbc.Input(type="number", id="price-input", min=0, step=0.01),
+                        dbc.Input(
+                            type="number",
+                            id="price-input",
+                            min=0,
+                            step=0.1,
+                            required=True,
+                        ),
                         html.Br(),
                         html.Label("State"),
                         dcc.Dropdown(
@@ -55,8 +63,6 @@ app.layout = html.Div(
                         html.Br(),
                         html.Label("City"),
                         dcc.Dropdown(
-                            options=Observation.available_cities(),
-                            value="Dallas",
                             id="city-input",
                         ),
                         html.Br(),
@@ -70,7 +76,12 @@ app.layout = html.Div(
                         html.Br(),
                         html.Br(),
                         html.Label("Number of Matching Observations to delete"),
-                        dbc.Input(type="number", value=1, id="delete-n-observations"),
+                        dbc.Input(
+                            type="number",
+                            value=1,
+                            id="delete-n-observations",
+                            required=True,
+                        ),
                         html.Br(),
                         html.Label("Delete Most Recent First?"),
                         dbc.Checklist(
@@ -111,10 +122,15 @@ app.layout = html.Div(
                             ),
                             id="observation-graph",
                         ),
-                        html.H3("Table of Observations", style={"text-align": "center"}),
+                        html.H3(
+                            "Table of Observations", style={"text-align": "center"}
+                        ),
                         dash_table.DataTable(
                             Observation.table_df().to_dict("records"),
                             id="observation-table",
+                            # style dash table
+                            style_table={"height": "400px", "overflowY": "auto"},
+                            style_cell={"textAlign": "center", "padding": "5px"},
                         ),
                     ],
                     style={"padding": 10, "flex": 1},
@@ -124,6 +140,12 @@ app.layout = html.Div(
         ),
     ],
 )
+
+
+# Update city by state dropdown
+@app.callback(Output("city-input", "options"), [Input("state-input", "value")])
+def update_date_dropdown(state):
+    return [{"label": i, "value": i} for i in Observation.state_city_map[state]]
 
 
 @app.callback(
@@ -180,7 +202,7 @@ def update_observation(
                 Date=datetime.datetime.strptime(date, "%Y-%m-%d").date(),
                 Category=category,
                 Item=item,
-                Price=float(price),
+                Price=price,
                 State=state,
                 City=city,
             )
@@ -201,7 +223,7 @@ def delete_observations(
             Date=datetime.datetime.strptime(date, "%Y-%m-%d").date(),
             Category=category,
             Item=item,
-            Price=float(price),
+            Price=price,
             State=state,
             City=city,
         )
